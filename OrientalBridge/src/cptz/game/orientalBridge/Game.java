@@ -1,35 +1,34 @@
 package cptz.game.orientalBridge;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public class Game {
 	private List<Player> players; // 选手 N W S E
-	private Dealer dealer; // 荷官
-	private List<Card> card; // 牌
+//	private Dealer dealer; // 荷官
+	private List<Card> poker; // 牌
 	private Record record; // 记录本
 	private Rule rule; // 规则
-	private Table table; // 牌桌，用于显示
-	private Settings settings; // 全局设置
+//	private Table table; // 牌桌，用于显示
+//	private Settings settings; // 全局设置
 	// private Timer timer; // 计时器
 
-	public int main() {
+	public static void main(String[] args) throws FileNotFoundException, IOException {
 		new Game().start().stop();
-		return 0;
 	}
 
-	public Game() {
-		players = new ArrayList<Player>(4);
-		dealer = new Dealer();
-		card = new ArrayList<Card>(52);
-		record = new Record();
+	public Game() throws FileNotFoundException, IOException {
 		rule = new Rule();
-		table = new Table();
-		settings = new Settings();
+		poker = Card.init();
+		players = Player.init();
+		record = new Record();
 	}
 
 	// 开始游戏
 	public Game start() {
+		
+		
 		return this;
 	}
 
@@ -58,14 +57,6 @@ public class Game {
 		return this;
 	}
 
-	public Dealer getDealer() {
-		return dealer;
-	}
-
-	public void setDealer(Dealer dealer) {
-		this.dealer = dealer;
-	}
-
 	public Record getRecord() {
 		return record;
 	}
@@ -80,27 +71,6 @@ public class Game {
 
 	public void setRule(Rule rule) {
 		this.rule = rule;
-	}
-
-	public Table getTable() {
-		return table;
-	}
-
-	public void setTable(Table table) {
-		this.table = table;
-	}
-
-	public Settings getSettings() {
-		return settings;
-	}
-
-	public void setSettings(Settings settings) {
-		this.settings = settings;
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
