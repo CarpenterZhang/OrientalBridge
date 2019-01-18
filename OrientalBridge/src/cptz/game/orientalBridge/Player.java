@@ -2,14 +2,32 @@ package cptz.game.orientalBridge;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class Player {
-	private List<Card> suit; // 持有牌
+public abstract class Player implements StatusChangeListener, ListenOtherPlayerListener {
+	protected List<Card> suit; // 持有牌
 	private int level; // 级别
 	private Strategy strategy; // 策略
 	private Memory memory; // 记忆
 	public int sit; // 座次
 	private boolean isAi; // 是否是AI
+	private List<ListenOtherPlayerListener> loplList;
+	
+	@Override
+	public void doAction(StatusChangeEvent event) {
+		Game self = (Game) event.getSource();
+		int status = event.getStatus().getStatus();
+		if(GameStatus.PLAYING.getStatus() == status) {
+			sort();
+			show();
+		}
+	}
+	
+	@Override
+	public void react() {
+		
+	}
+
 
 	public static List<Player> init() {
 		List<Player> players = new ArrayList<Player>(4);
@@ -20,21 +38,42 @@ public class Player {
 			player.setAi(aiSetting[i]);
 			player.setLevel(playerLevel[i]);
 			player.setSit(i);
+			for(int j = 0; j < i; j++) {
+				player.addListener(players.get(j));
+			}
 			players.add(player);
 		}
 		return players;
+	}
+
+	public Player() {
+		this.loplList = new ArrayList<ListenOtherPlayerListener>(4);
+	}
+	
+	public void setSuit(List<Card> suit) {
+		this.suit = suit;
+	}
+
+	public List<Card> getSuit() {
+		return suit;
 	}
 
 	public Card decision() {
 		return null;
 	}
 
-	public boolean[] show() {
-		return null;
+	public abstract boolean[] show();
+
+	public void addListener(ListenOtherPlayerListener listener) {
+		this.loplList.add(listener);
 	}
-
+	
+	// 理牌
 	public void sort() {
-
+		suit.sort((card1, card2) -> {
+			int color = card1.color.getIndex() - card2.color.getIndex();
+			return (color != 0) ? color : card1.point - card2.point;
+		});
 	}
 
 	public int getLevel() {

@@ -3,7 +3,7 @@ package cptz.game.orientalBridge;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Record {
+public class Record implements StatusChangeListener {
 	private static List<List<List<Card>>> HISTORY; // [圈 52张][轮 4张][张]
 	public static int GAME_COUNT; // 当前游戏局数
 	public static List<List<Card>> GOTTEN_CARDS; // 当前圈截止到上一轮，每个选手吃的牌
@@ -27,6 +27,12 @@ public class Record {
 		SHOW = new int[4];
 
 		CUR_COLOR = Rule.FIRST_CARD.color;
+	}
+
+	@Override
+	public void doAction(StatusChangeEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public int getFirstAttacker() {

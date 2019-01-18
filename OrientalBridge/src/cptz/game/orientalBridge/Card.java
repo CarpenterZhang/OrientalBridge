@@ -9,6 +9,11 @@ public class Card {
 	public String face; // 显示字符
 	public int score; // 分数
 	
+	public static Card PIG = new Card(Color.SPADE, 12, "Q", 0);
+	public static Card PEACH = new Card(Color.HEART, 14, "A", 0);
+	public static Card EVIL = new Card(Color.CLUB, 10, "10", 0);
+	public static Card SHEEP = new Card(Color.DIAMOND, 11, "J", 0);
+	
 	public Card(Color color, int point, String face, int score) {
 		super();
 		this.color = color;

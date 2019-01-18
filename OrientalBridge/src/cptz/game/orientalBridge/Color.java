@@ -1,9 +1,9 @@
 package cptz.game.orientalBridge;
 
 public enum Color {
-	SPADE(1, "S"), 
-	HEART(2, "H"), 
-	CLUB(3, "C"), 
+	SPADE(1, "S"),
+	HEART(2, "H"),
+	CLUB(3, "C"),
 	DIAMOND(4, "D");
 
 	Color(int index, String face) {
